@@ -1,0 +1,174 @@
+/* Accessibility enhancements — linked from components/Layout.tsx (loaded, unlike styles/globals.css). */
+
+/* Prevent stray horizontal scroll from full-bleed shapes/sections
+   (styles/globals.css had this guard but is never imported).
+   `overflow-x: hidden` still leaves a touch-pannable scroll container on mobile
+   when content overflows by a few px; `overflow-x: clip` removes the scrollport
+   entirely so the page can't be dragged sideways. hidden is the fallback. */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+@supports (overflow: clip) {
+  html,
+  body {
+    overflow-x: clip;
+  }
+}
+/* NB: the .loader-root scroll-lock failsafe lives inline in pages/_document.tsx
+   so it applies before this (late-loading) stylesheet does. */
+
+/* Restore a visible keyboard focus indicator (template style.css sets outline:none !important). */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible,
+.thm-btn:focus-visible {
+  outline: 2px solid #ffd25d !important;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Open the desktop dropdown menus on keyboard focus, not just hover.
+   Gated on :focus-visible (not plain :focus-within) so only KEYBOARD focus
+   pins the menu open — a mouse click also leaves focus on the link, which
+   used to hold the dropdown open after clicking (and even after navigating,
+   since the menu DOM persists across SPA route changes). !important to beat
+   the more specific base "hidden" rule. */
+.main-menu__list > li.dropdown:has(:focus-visible) > ul,
+.main-menu__list > li:has(:focus-visible) > ul.shadow-box {
+  opacity: 1 !important;
+  visibility: visible !important;
+  -webkit-transform: scaleY(1) translateZ(0px) !important;
+  transform: scaleY(1) translateZ(0px) !important;
+  pointer-events: auto !important;
+}
+
+/* With 8 top-level items (Careers added) the desktop menu overflows to a
+   second row on common laptop widths. Tighten item spacing and font between
+   the hamburger breakpoint and full desktop so it stays on one line. */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .main-menu .main-menu__list > li + li,
+  .stricky-header .main-menu__list > li + li {
+    margin-left: 18px;
+  }
+  .main-menu .main-menu__list > li > a,
+  .stricky-header .main-menu__list > li > a {
+    font-size: 15px;
+  }
+}
+
+/* ---- Section-rhythm normalization (2026-07-21) ----
+   When columns stack, the title column now leads (order utilities), so the
+   old 50px separator margin the template gave it belongs on the element that
+   moved BELOW it instead. Plus a few sections that broke the site's 80px
+   mobile padding baseline. */
+
+/* About: columns stack below 1200px (order-xl flip). */
+@media (max-width: 1199.98px) {
+  .about-four .about-four__right {
+    margin-top: 0;
+  }
+  .about-four .about-four__left {
+    margin-top: 50px;
+  }
+}
+
+/* Contact: columns stack below 992px (order-lg flip). */
+@media (max-width: 991.98px) {
+  .contact-one .contact-one__right {
+    margin-top: 0;
+  }
+  .contact-one .contact-one__left {
+    margin-top: 50px;
+  }
+}
+
+/* Team grid ended flush against the footer (padding-bottom was 0). */
+.team-page {
+  padding-bottom: 80px;
+}
+
+/* Careers section padding (was inline 120px): 140px desktop baseline like the
+   other pages, 80px mobile baseline. */
+.careers-page {
+  padding: 140px 0;
+}
+@media (max-width: 767.98px) {
+  .careers-page {
+    padding: 80px 0;
+  }
+}
+
+/* About's closing section sat only 40px off the footer on mobile (norm: 70+). */
+@media (max-width: 767.98px) {
+  .why-choose-three {
+    padding-bottom: 70px;
+  }
+}
+
+/* Desktop: closing sections should land ~140px off the footer like the rest
+   of the site (their cards carry ~30px bottom margin, hence 110 here).
+   why-choose-three had padding-bottom 0; team-page got 80 in the mobile pass. */
+@media (min-width: 768px) {
+  .team-page {
+    padding-bottom: 110px;
+  }
+  .why-choose-three {
+    padding-bottom: 110px;
+  }
+}
+
+/* Team card: the social overlay + photo zoom trigger on the PHOTO only.
+   team.css fires both on the whole card wrapper (.team-one__single:hover),
+   which includes the role/name strip — hovering the name popped the overlay.
+   Re-assert the resting state for wrapper-hover, re-bind reveal to the image
+   box (higher specificity wins over the re-assert). */
+.team-one__single:hover .team-one__social-box {
+  opacity: 0;
+  transform: translateY(50px);
+}
+.team-one__single .team-one__img-box:hover .team-one__social-box {
+  opacity: 1;
+  transform: translateY(0px);
+}
+.team-one__single:hover .team-one__img img {
+  transform: scale(1.0);
+}
+.team-one__single .team-one__img-box:hover .team-one__img img {
+  transform: scale(1.05) rotate(0deg);
+}
+
+/* ---- Mobile hero stability (2026-07-22) ----
+   1) Slides sized to their own content (705/629/659px at 390w), and each
+      slide carries its own gradient bg — so the hero's bottom edge visibly
+      jumped every rotation. Equalize: stretch all slides to the tallest.
+   2) The text entrance swept up from +120px, crossing the pagination dots on
+      phones. A 40px offset stays clear of the dots and feels less busy. */
+@media (max-width: 768px) {
+  .main-slider-two .swiper-wrapper {
+    align-items: stretch;
+  }
+  .main-slider-two .swiper-slide {
+    height: auto;
+  }
+  .main-slider-two .main-slider-two__title {
+    transform: perspective(400px) rotateX(0deg) translateY(-40px);
+  }
+  .main-slider-two .main-slider-two__sub-title-box,
+  .main-slider-two .main-slider-two__text,
+  .main-slider-two .main-slider-two__btns-box {
+    transform: perspective(400px) rotateY(0deg) translateY(40px);
+  }
+  .main-slider-two .swiper-slide-active .main-slider-two__title {
+    transform: perspective(400px) rotateX(0deg) translateY(0px);
+  }
+  .main-slider-two .swiper-slide-active .main-slider-two__sub-title-box,
+  .main-slider-two .swiper-slide-active .main-slider-two__text,
+  .main-slider-two .swiper-slide-active .main-slider-two__btns-box {
+    transform: perspective(400px) rotateY(0deg) translateY(0px);
+  }
+}

@@ -1,0 +1,25 @@
+const nextConfig = {
+  pageExtensions: ["tsx", "ts", "jsx", "js"],
+  output: "export",
+  basePath: "", // Optional: set this if deploying to a subdirectory
+  assetPrefix: "./", // 👈 This fixes broken asset paths
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  trailingSlash: true,
+  images: { unoptimized: true },
+  experimental: {
+    appDir: true,
+    optimizeCss: false,
+  },
+  webpack(config:any, { dev }: { dev: boolean }) {
+    if (dev) {
+      config.ignoreWarnings = [
+        (warning: any) => warning.message.includes("Invalid DOM property"),
+      ];
+    }
+    return config;
+  },
+};
+
+export default nextConfig;

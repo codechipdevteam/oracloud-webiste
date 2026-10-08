@@ -1,0 +1,33 @@
+.whatsappBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  padding: 16px 30px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  text-transform: capitalize;
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.whatsappBtn:hover {
+  color: #fff;
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(18, 140, 126, 0.45);
+}
+
+.whatsappBtnIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 18px;
+}

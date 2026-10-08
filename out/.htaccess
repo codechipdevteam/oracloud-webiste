@@ -1,0 +1,35 @@
+Options -Indexes
+DirectoryIndex index.html
+
+# Canonical host: 301 the bare domain to www — canonical tags, the sitemap and
+# OG URLs all declare www, so search engines and shared links consolidate on
+# one host. HTTPS itself is enforced at the Hostinger level.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^oracloud\.in$ [NC]
+  RewriteRule ^ https://www.oracloud.in%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# Static export: every real route has its own HTML file, served directly by
+# Apache. Unknown paths must return a genuine 404 (previously an .htaccess
+# catch-all rewrote ANY unknown URL to the homepage, creating soft-404
+# duplicate content and making removed junk routes still return 200).
+ErrorDocument 404 /404.html
+
+# Caching: HTML must always revalidate — deploys swap the hashed JS/CSS a page
+# references, and a heuristically-cached HTML keeps serving the OLD bundle.
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+# Security headers (guarded so a missing mod_headers can't 500 the site)
+<IfModule mod_headers.c>
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  # HTTPS is enforced at the host level; assert HSTS for the main domain (no includeSubDomains to avoid affecting other subdomains).
+  Header always set Strict-Transport-Security "max-age=31536000"
+</IfModule>

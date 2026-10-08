@@ -1,0 +1,13 @@
+image: atlassian/default-image:3
+
+pipelines:
+  default:
+    - step:
+        name: Deploy via SSH
+        script:
+          - apt-get update && apt-get install -y sshpass
+          - sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -p $SSH_PORT $SSH_USER@$SSH_HOST "
+              cd /home/$SSH_USER/domains/oracloud.co.in/public_html/oracloud-website && \
+              git reset --hard && \
+              git pull
+            "
