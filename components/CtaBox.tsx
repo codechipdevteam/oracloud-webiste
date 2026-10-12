@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import LottieAnimation from "./LottieAnimation";
 import styles from "./CtaBox.module.css";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaWhatsapp } from "react-icons/fa";
 
 interface CtaBoxProps {
   tag?: string;
@@ -13,6 +13,7 @@ interface CtaBoxProps {
   description?: string;
   ctaText?: string;
   ctaHref?: string;
+  ctaVariant?: "default" | "whatsapp";
   lottieSrc?: string;
   lottieWidth?: number;
   lottieHeight?: number;
@@ -26,6 +27,7 @@ const CtaBox: React.FC<CtaBoxProps> = ({
   description,
   ctaText = "Contact Us",
   ctaHref = "/contact",
+  ctaVariant = "default",
   lottieSrc = "/animations/social-media.lottie",
   lottieWidth = 320,
   lottieHeight = 320,
@@ -101,10 +103,21 @@ const CtaBox: React.FC<CtaBoxProps> = ({
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.5 }}
           >
-            <Link href={ctaHref} className={styles.ctaBoxLink}>
+            <Link
+              href={ctaHref}
+              className={
+                ctaVariant === "whatsapp"
+                  ? styles.ctaBoxLinkWhatsapp
+                  : styles.ctaBoxLink
+              }
+            >
               <span>{ctaText}</span>
               <span className={styles.ctaBoxLinkArrow}>
-                <FaArrowRight size={14} />
+                {ctaVariant === "whatsapp" ? (
+                  <FaWhatsapp size={16} />
+                ) : (
+                  <FaArrowRight size={14} />
+                )}
               </span>
             </Link>
           </motion.div>

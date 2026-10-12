@@ -45,7 +45,10 @@ const SocialMediaMarketing = () => {
         canonical="https://www.oracloud.in/digital-marketing-services/social-media-marketing/"
       />
       <PageTitle
-        breadcrumbsText="Social Media Marketing"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Social Media Marketing" },
+        ]}
         title="Social Media Marketing & Management Services in Chalakudy "
         backgroundImage="/assets/images/stock/photo-1611926653458-09294b3142bf-w2070.webp"
       />
@@ -57,8 +60,9 @@ const SocialMediaMarketing = () => {
             tag="Ready to Grow?"
             heading="Our Social Media Agency in Chalakudy, Serving Thrissur and Kerala"
             description="Our office is at Swarnam Arcade, Anamala Junction, Chalakudy, and we work with local shops, clinics, restaurants, schools and colleges around us. We also manage social media for clients in Thrissur, Irinjalakuda, Kodakara, Angamaly and Kochi, and across Kerala through calls, video meetings and regular reports."
-            ctaText="Call Now"
-            ctaHref="/contact"
+            ctaText="WhatsApp Us"
+            ctaHref="https://wa.me/917034302111"
+            ctaVariant="whatsapp"
             lottieSrc="/animations/cta2.lottie"
             lottieWidth={320}
             lottieHeight={320}

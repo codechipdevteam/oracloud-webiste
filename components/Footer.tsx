@@ -78,11 +78,11 @@ export default function Footer() {
                         Opening Hours
                       </h5>
                       <p className="site-footer-two__contact-info">
-                        Mon - Fri: 9am - 05pm
+                        Mon - Fri: 9am - 5.30pm
                         <br />
-                        ​​Saturday: 9am - 01pm
+                        ​​Saturday: 9am - 5pm
                         <br />
-                        ​Sunday: 9am - 01pm
+                        ​Sunday: Closed
                       </p>
                     </div>
                   </li>

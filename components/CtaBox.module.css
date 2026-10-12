@@ -117,6 +117,30 @@
   color: var(--techguru-base);
 }
 
+.ctaBoxLinkWhatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 50px;
+  transition: all 0.4s ease;
+  text-decoration: none;
+}
+
+.ctaBoxLinkWhatsapp:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.4);
+}
+
+.ctaBoxLinkWhatsapp:hover .ctaBoxLinkArrow {
+  background: #ffffff;
+  color: #128c7e;
+}
+
 .ctaBoxLottie {
   flex-shrink: 0;
   min-width: 220px;
