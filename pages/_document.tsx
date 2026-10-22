@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from "next/document";
+import { serializeJsonLd, siteWideSchema } from "@/lib/seo/schema";
 
 export default function Document() {
   return (
@@ -59,62 +60,14 @@ export default function Document() {
           rel="stylesheet"
         />
         {/* Organization + local-business structured data (JSON-LD) for rich
-            search results; geo/openingHours support local Kerala searches. */}
+            search results; geo/openingHours support local Kerala searches.
+            The nodes carry stable `@id`s, so pages that add their own graph
+            (e.g. the social media marketing page) merge into these same
+            entities instead of declaring conflicting copies of the business. */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": ["Organization", "ProfessionalService"],
-              name: "Oracloud",
-              legalName: "Oracloud Technologies",
-              url: "https://www.oracloud.in",
-              logo: "https://www.oracloud.in/android-chrome-512x512.png",
-              image: "https://www.oracloud.in/og-image.png",
-              email: "connect@oracloud.in",
-              telephone: "+91-7034-302-111",
-              address: {
-                "@type": "PostalAddress",
-                streetAddress:
-                  "First Floor, Swarnam Arcade, Anamala Junction",
-                addressLocality: "Chalakudy",
-                addressRegion: "Kerala",
-                postalCode: "680307",
-                addressCountry: "IN",
-              },
-              geo: {
-                "@type": "GeoCoordinates",
-                latitude: 10.3106579,
-                longitude: 76.3341538,
-              },
-              openingHoursSpecification: [
-                {
-                  "@type": "OpeningHoursSpecification",
-                  dayOfWeek: [
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                  ],
-                  opens: "09:00",
-                  closes: "17:00",
-                },
-                {
-                  "@type": "OpeningHoursSpecification",
-                  dayOfWeek: ["Saturday", "Sunday"],
-                  opens: "09:00",
-                  closes: "13:00",
-                },
-              ],
-              sameAs: [
-                "https://www.facebook.com/people/Oracloud/61560252886547/",
-                "https://www.instagram.com/oracloud_official/",
-                "https://x.com/oracloudltd",
-                "https://www.linkedin.com/in/oracloud-technologies-95b6a6314/",
-                "https://www.youtube.com/@Oracloud",
-              ],
-            }),
+            __html: serializeJsonLd(siteWideSchema),
           }}
         />
       </Head>

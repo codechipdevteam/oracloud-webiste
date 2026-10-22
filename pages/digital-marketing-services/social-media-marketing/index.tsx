@@ -1,46 +1,35 @@
 "use client";
 
+import Head from "next/head";
 import PageTitle from "@/components/PageTitle";
 import Seo from "@/components/Seo";
 import React from "react";
 import IntroSection from "./components/IntroSection";
 import CtaBox from "@/components/CtaBox";
 import FaqSection from "@/components/FaqSection";
-import { FaqItem } from "@/components/FaqSection";
-
-const socialMediaFaqs: FaqItem[] = [
-  {
-    question: "What does a social media marketing agency in Chalakudy do?",
-    answer:
-      "We take care of everything behind your social media pages: a monthly content plan, post and reel design, captions, scheduling, replies to comments and messages, and paid ads. Being based in Chalakudy, we can meet you in person, understand your local customers and respond quickly.",
-  },
-  {
-    question: "How much do social media services cost in Kerala?",
-    answer:
-      "There is no single price, because every business needs something different. The cost depends on how many platforms you want managed, how many posts and reels you need each month, whether you want video shooting, and whether you run paid ads. Tell us about your business on WhatsApp or call us, and we will send a clear quote that fits your needs and budget, with no hidden charges.",
-  },
-  {
-    question: "Do you work with businesses in Thrissur and nearby towns?",
-    answer:
-      "Yes. Our office is in Chalakudy, and we work with clients in Thrissur, Irinjalakuda, Kodakara, Angamaly and Kochi. We handle meetings through calls, video chats or visits, and you get a monthly report wherever you are.",
-  },
-  {
-    question: "Which platforms do you manage, and do you run ads?",
-    answer:
-      "We manage Facebook, Instagram, YouTube, LinkedIn and X (Twitter). We also run targeted Facebook and Instagram ads for leads, calls and store visits. The ad budget you pay to Meta is separate from our service fee.",
-  },
-  {
-    question: "How soon can I see results?",
-    answer:
-      "Most businesses see better-looking pages and steadier engagement in the first month. Growth in followers and enquiries usually takes 2 to 3 months of consistent posting and ads. We share a monthly report so you can see exactly what is working.",
-  },
-];
+import { socialMediaFaqs } from "@/lib/data/socialMediaFaqs";
+import {
+  serializeJsonLd,
+  socialMediaMarketingSchema,
+} from "@/lib/seo/schema";
 
 const SocialMediaMarketing = () => {
   return (
     <>
+      <Head>
+        {/* Structured data for this route only: Organization, ProfessionalService,
+            WebSite, WebPage, BreadcrumbList, Service and FAQPage. The Organization
+            and ProfessionalService nodes reuse the site-wide `@id`s so they merge
+            with the markup in _document.tsx instead of duplicating the business. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: serializeJsonLd(socialMediaMarketingSchema),
+          }}
+        />
+      </Head>
       <Seo
-        title="Social Media Marketing Agency  in Chalakudy | Oracloud"
+        title="Social Media Marketing Agency in Chalakudy | Oracloud"
         description="Social media marketing agency in Chalakudy, serving Thrissur and Kerala. Social media management, content, design and ads. Call or WhatsApp for a free quote."
         canonical="https://www.oracloud.in/digital-marketing-services/social-media-marketing/"
       />

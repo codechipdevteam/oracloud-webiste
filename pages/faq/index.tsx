@@ -3,11 +3,13 @@ import Seo from "@/components/Seo";
 import Head from "next/head";
 import React from "react";
 import FaqSection, { faqGroups } from "@/components/faq/FaqSection";
+import { serializeJsonLd } from "@/lib/seo/schema";
 
 // FAQPage structured data, built from the same list the page renders.
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
+  "@id": "https://www.oracloud.in/faq/#faq",
   mainEntity: faqGroups
     .flatMap((group) => group.items)
     .map((faq) => ({
@@ -30,7 +32,7 @@ const Faq = () => {
       <Head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqJsonLd) }}
         />
       </Head>
       <PageTitle

@@ -106,7 +106,7 @@ export const faqGroups: FaqGroup[] = [
       {
         question: "How do I reach support when something breaks?",
         answer1:
-          "Call +91 7034 302 111 or email connect@oracloud.in. Office hours are Monday to Friday 9–5, and 9–1 on weekends.",
+          "Call +91 7034 302 111 or email connect@oracloud.in. Office hours are Monday to Friday 9am–5.30pm and Saturday 9am–5pm. We are closed on Sundays.",
         answer2:
           "Clients on maintenance plans get round-the-clock attention for critical issues — that's what the 24/7 support on our homepage means.",
       },
